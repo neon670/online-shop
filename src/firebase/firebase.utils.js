@@ -38,11 +38,32 @@ const config = {
 
   firebase.initializeApp(config);
 
+ export const convertCollectionsSnapchotToMap = (collections) => {
+   const transformedCollection = collections.docs.map(doc => {
+     const { title, items } = doc.data();
+     return{
+       routeName: encodeURI(title.toLowerCase()),
+       id: doc.id,
+       title,
+       items
+     };
+   });
+   return transformedCollection.reduce((accumalator, collection) => {
+  accumalator[collection.title.toLowerCase()] = collection;
+  return accumalator;
+  }, {});
+ };
+
+
+
+
+
   export const auth = firebase.auth();
   export const firestore = firebase.firestore();
 
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({prompt: 'select_account'});
   export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
 
   export default firebase;
