@@ -6,9 +6,7 @@ import { ErrorImageOverlay, ErrorImageContainer, ErrorImageText } from './error-
 class ErrorBoundary extends React.Component{
 	constructor(){
 		super();
-		this.state ={
-			hasErrored: false
-		}
+		this.state ={ hasErrored: false }
 	}
 	static getDerivedStateFromError(error){
 
